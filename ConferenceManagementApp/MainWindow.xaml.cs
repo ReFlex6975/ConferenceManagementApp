@@ -100,7 +100,7 @@ namespace ConferenceManagementApp
                 return;
             }
 
-            string selectedDegree = degreeComboBox.SelectedItem.ToString(); // Получить выбранную степень из ComboBox
+            string selectedDegree = degreeComboBox.SelectedItem.ToString();
 
             string insertQuery = "INSERT INTO Researchers (id, full_name, country, academic_degree) VALUES (@id, @full_name, @country, @academic_degree)";
 
