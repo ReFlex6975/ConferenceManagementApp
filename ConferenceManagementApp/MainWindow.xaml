@@ -50,7 +50,18 @@
 
             <TabItem Header="Me">
                 <StackPanel>
-                    <Label Content="Glep"></Label>
+                    <StackPanel Orientation="Horizontal" Margin="10">
+                        <StackPanel>
+                            <TextBlock Text="Researchers" Margin="5"/>
+                            <ListBox x:Name="researchersListBox" Width="300" Height="300" DisplayMemberPath="FullName" Margin="5"/>
+                        </StackPanel>
+                        <StackPanel>
+                            <TextBlock Text="Conferences" Margin="5"/>
+                            <ListBox x:Name="conferencesListBox" Width="300" Height="300" DisplayMemberPath="Name" Margin="5"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <TextBox x:Name="topicTextBox" Margin="10" Width="300" Height="30" Text="Topic"/>
+                    <Button Content="Add Participation" Click="AddParticipationButton_Click" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
                 </StackPanel>
             </TabItem>
         </TabControl>

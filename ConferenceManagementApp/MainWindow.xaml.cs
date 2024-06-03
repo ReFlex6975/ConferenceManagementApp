@@ -20,11 +20,168 @@ namespace ConferenceManagementApp
     public partial class MainWindow : Window
     {
         private string connectionString = "Data Source=REFLEXLAPTOP;Initial Catalog=PR1_1;Integrated Security=True";
+        public List<Researcher> Researchers { get; set; }
+        public List<Conference> Conferences { get; set; }
+        public List<AnalysisResult> AnalysisResults { get; set; }
 
         public MainWindow()
         {
             InitializeComponent();
-            PopulateAnalysisData();
+            LoadData();
+        }
+
+        public class AnalysisResult
+        {
+            public string FullName { get; set; }
+            public int NumberOfPresentations { get; set; }
+        }
+
+        private void LoadData()
+        {
+            Researchers = new List<Researcher>();
+            Conferences = new List<Conference>();
+            LoadResearchers();
+            LoadConferences();
+            researchersListBox.ItemsSource = Researchers;
+            conferencesListBox.ItemsSource = Conferences;
+            analysisResultsDataGrid.ItemsSource = AnalysisResults;
+            // Создайте список AnalysisResults и заполните его  
+            AnalysisResults = new List<AnalysisResult>();
+
+            // Загрузите данные из базы данных
+            string query = "SELECT full_name, COUNT(*) AS number_of_presentations " +
+                           "FROM Researchers " +
+                           "INNER JOIN Participation ON Researchers.id = Participation.researcher_id " +
+                           "GROUP BY full_name";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+
+                try
+                {
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        AnalysisResults.Add(new AnalysisResult
+                        {
+                            FullName = reader.GetString(0),
+                            NumberOfPresentations = reader.GetInt32(1)
+                        });
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error loading analysis data: " + ex.Message);
+                }
+            }
+
+            // Установите AnalysisResults в качестве источника данных для DataGrid
+            analysisResultsDataGrid.ItemsSource = AnalysisResults;
+        }
+
+        private void LoadResearchers()
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT * FROM Researchers";
+                SqlCommand command = new SqlCommand(query, connection);
+
+                try
+                {
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Researchers.Add(new Researcher
+                        {
+                            Id = reader.GetInt32(0),
+                            FullName = reader.GetString(1),
+                            Country = reader.GetString(2),
+                            AcademicDegree = reader.GetString(3)
+                        });
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error loading researchers: " + ex.Message);
+                }
+            }
+        }
+
+        private void LoadConferences()
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT * FROM Conferences";
+                SqlCommand command = new SqlCommand(query, connection);
+
+                try
+                {
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Conferences.Add(new Conference
+                        {
+                            ConferenceCode = reader.GetInt32(0),
+                            Name = reader.GetString(1),
+                            Date = reader.GetDateTime(2),
+                            Location = reader.GetString(3)
+                        });
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error loading conferences: " + ex.Message);
+                }
+            }
+        }
+
+        private void AddParticipationButton_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedResearchers = researchersListBox.SelectedItems;
+            var selectedConference = (Conference)conferencesListBox.SelectedItem;
+            string topic = topicTextBox.Text;
+
+            if (selectedResearchers.Count == 0 || selectedConference == null)
+            {
+                MessageBox.Show("Please select at least one researcher and one conference.");
+                return;
+            }
+
+            foreach (Researcher researcher in selectedResearchers)
+            {
+                AddParticipation(researcher.Id, selectedConference.ConferenceCode, topic);
+            }
+
+            MessageBox.Show("Participation information saved successfully!");
+        }
+
+        private void AddParticipation(int researcherId, int conferenceCode, string topic)
+        {
+            // Добавление записи о участии ученого в конференции
+            string insertQuery = "INSERT INTO Participation (researcher_id, conference_code, topic) VALUES (@researcher_id, @conference_code, @topic)";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(insertQuery, connection);
+                command.Parameters.AddWithValue("@researcher_id", researcherId);
+                command.Parameters.AddWithValue("@conference_code", conferenceCode);
+                command.Parameters.AddWithValue("@topic", topic);
+
+                try
+                {
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                    MessageBox.Show("Participation information saved successfully!");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error adding participation: " + ex.Message);
+                }
+            }
         }
 
         private void SaveConferenceButton_Click(object sender, RoutedEventArgs e)
@@ -100,7 +257,8 @@ namespace ConferenceManagementApp
                 return;
             }
 
-            string selectedDegree = degreeComboBox.SelectedItem.ToString();
+            string selectedDegree = (degreeComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
+
 
             string insertQuery = "INSERT INTO Researchers (id, full_name, country, academic_degree) VALUES (@id, @full_name, @country, @academic_degree)";
 
@@ -143,7 +301,7 @@ namespace ConferenceManagementApp
                     if (result != null && result != DBNull.Value)
                     {
                         int maxId = Convert.ToInt32(result);
-                        nextEmployeeId = Math.Max(nextEmployeeId, maxId + 1);
+                        nextEmployeeId = Math.Max(1000, maxId + 1); // Обновлено для корректного увеличения ID
                     }
                 }
                 catch (Exception ex)
@@ -183,31 +341,21 @@ namespace ConferenceManagementApp
                 }
             }
         }
+    }
 
-        private void PopulateAnalysisData()
-        {
-            string analysisQuery = "SELECT full_name, COUNT(*) AS number_of_presentations " +
-                                   "FROM Researchers " +
-                                   "INNER JOIN Participation ON Researchers.id = Participation.researcher_id " +
-                                   "GROUP BY full_name";
+    public class Researcher
+    {
+        public int Id { get; set; }
+        public string FullName { get; set; }
+        public string Country { get; set; }
+        public string AcademicDegree { get; set; }
+    }
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                SqlCommand command = new SqlCommand(analysisQuery, connection);
-
-                try
-                {
-                    connection.Open();
-                    SqlDataAdapter adapter = new SqlDataAdapter(command);
-                    DataTable dataTable = new DataTable();
-                    adapter.Fill(dataTable);
-                    analysisResultsDataGrid.ItemsSource = dataTable.DefaultView;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error: " + ex.Message);
-                }
-            }
-        }
+    public class Conference
+    {
+        public int ConferenceCode { get; set; }
+        public string Name { get; set; }
+        public DateTime Date { get; set; }
+        public string Location { get; set; }
     }
 }
