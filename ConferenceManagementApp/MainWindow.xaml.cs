@@ -19,6 +19,7 @@ namespace ConferenceManagementApp
 {
     public partial class MainWindow : Window
     {
+        //УБЕРИ СТРОКУ ПОДКЛЮЧЕНИЯ В ОТДЕЛЬНЫЙ КЛАСС
         //private string connectionString = "Data Source=REFLEXLAPTOP;Initial Catalog=PR1_1;Integrated Security=True"; //ноут
         private string connectionString = "Data Source=ReFlex;Initial Catalog=PR1_1;Integrated Security=True"; //пк
 
