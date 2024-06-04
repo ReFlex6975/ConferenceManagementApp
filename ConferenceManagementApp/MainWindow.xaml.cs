@@ -155,8 +155,6 @@ namespace ConferenceManagementApp
             {
                 AddParticipation(researcher.Id, selectedConference.ConferenceCode, topic);
             }
-
-            MessageBox.Show("Participation information saved successfully!");
         }
 
         private void AddParticipation(int researcherId, int conferenceCode, string topic)
