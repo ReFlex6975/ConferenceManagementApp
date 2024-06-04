@@ -14,7 +14,8 @@
                     <TextBox x:Name="conferenceNameTextBox" Margin="10" Width="300" Height="30" Text="Conference Name"/>
                     <DatePicker x:Name="conferenceDatePicker" Margin="10" Width="300" Height="30" Text="Conference Date"/>
                     <TextBox x:Name="conferenceLocationTextBox" Margin="10" Width="300" Height="30" Text="Conference Location"/>
-                    <Button x:Name="saveConferenceButton" Content="Save Conference" Click="SaveConferenceButton_Click" Margin="10" Height="30"/>
+                    <Button x:Name="saveConferenceButton" Content="Save Conference" Click="SaveConferenceButton_Click" Margin="10" Width="300" Height="30"/>
+                    <Label x:Name="conferenceErrorLabel" Width="300"/>
                 </StackPanel>
             </TabItem>
 
@@ -22,13 +23,14 @@
             <TabItem Header="Researchers">
                 <StackPanel>
                     <TextBox x:Name="fullNameTextBox" Margin="10" Width="300" Height="30" Text="Full Name"/>
-                    <TextBox x:Name="countryTextBox" Margin="10" Width="300" Height="30" Text="Country"/>
+                    <TextBox x:Name="countryTextBox" Margin="10" Width="300" Height="30" Text="Country" />
                     <ComboBox x:Name="degreeComboBox" Margin="10" Width="300" Height="30" SelectedIndex="0">
                         <ComboBoxItem Content="профессор"/>
                         <ComboBoxItem Content="академик"/>
                         <ComboBoxItem Content="доктор"/>
                     </ComboBox>
-                    <Button x:Name="saveParticipantButton" Content="Save Participant" Click="SaveParticipantButton_Click" Margin="10" Height="30"/>
+                    <Button x:Name="saveParticipantButton" Content="Save Participant" Click="SaveParticipantButton_Click" Margin="10" Width="300" Height="30"/>
+                    <Label  x:Name="errorLabel" Width="300"/>
                 </StackPanel>
             </TabItem>
 
@@ -36,7 +38,8 @@
             <TabItem Header="Search">
                 <StackPanel>
                     <TextBox x:Name="fullNameSearchTextBox" Margin="10" Width="300" Height="30" Text="Full Name"/>
-                    <Button x:Name="searchButton" Content="Search" Click="SearchButton_Click" Margin="10" Height="30"/>
+                    <Button x:Name="searchButton" Content="Search" Click="SearchButton_Click" Margin="10" Width="300" Height="30"/>
+                    <Label x:Name="searchErrorLabel"></Label>
                     <DataGrid x:Name="searchResultsDataGrid" Margin="10" Height="300" AutoGenerateColumns="True"/>
                 </StackPanel>
             </TabItem>
@@ -44,24 +47,28 @@
             <!-- Tab for analyzing popularity of researchers -->
             <TabItem Header="Analysis">
                 <StackPanel>
-                    <DataGrid x:Name="analysisResultsDataGrid" Margin="10" Height="300" AutoGenerateColumns="True"/>
+                    <DataGrid x:Name="analysisResultsDataGrid" Margin="10" Height="385" AutoGenerateColumns="True"/>
                 </StackPanel>
             </TabItem>
-
+            
             <TabItem Header="Participants">
                 <StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="10">
-                        <StackPanel>
+                    <Grid Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
                             <TextBlock Text="Researchers" Margin="5"/>
-                            <ListBox x:Name="researchersListBox" Width="300" Height="300" DisplayMemberPath="FullName" Margin="5"/>
+                            <ListBox x:Name="researchersListBox" Width="300" Height="250" DisplayMemberPath="FullName" Margin="5"/>
                         </StackPanel>
-                        <StackPanel>
+                        <StackPanel Grid.Column="1">
                             <TextBlock Text="Conferences" Margin="5"/>
-                            <ListBox x:Name="conferencesListBox" Width="300" Height="300" DisplayMemberPath="Name" Margin="5"/>
+                            <ListBox x:Name="conferencesListBox" Width="300" Height="250" DisplayMemberPath="Name" Margin="5"/>
                         </StackPanel>
-                    </StackPanel>
+                    </Grid>
                     <TextBox x:Name="topicTextBox" Margin="10" Width="300" Height="30" Text="Topic"/>
-                    <Button Content="Add Participation" Click="AddParticipationButton_Click" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+                    <Button Content="Add Participation" Click="AddParticipationButton_Click" Margin="10" Width="300" Height="30" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
                 </StackPanel>
             </TabItem>
         </TabControl>

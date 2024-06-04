@@ -184,6 +184,13 @@ namespace ConferenceManagementApp
 
         private void SaveConferenceButton_Click(object sender, RoutedEventArgs e)
         {
+            conferenceErrorLabel.Content = "";
+            int nextEmployeeId = GetNextEmployeeId();
+            if (string.IsNullOrEmpty(conferenceNameTextBox.Text) || string.IsNullOrEmpty(conferenceLocationTextBox.Text))
+            {
+                conferenceErrorLabel.Content = "Вы не заполнили все поля";
+                return;
+            }
             int nextConferenceCode = GetNextConferenceCode();
 
             if (nextConferenceCode < 1 || nextConferenceCode > 100000)
@@ -247,7 +254,13 @@ namespace ConferenceManagementApp
 
         private void SaveParticipantButton_Click(object sender, RoutedEventArgs e)
         {
+            errorLabel.Content = "";
             int nextEmployeeId = GetNextEmployeeId();
+            if (string.IsNullOrEmpty(countryTextBox.Text) || string.IsNullOrEmpty(fullNameTextBox.Text))
+            {
+                errorLabel.Content = "Вы не заполнили все поля";
+                return;
+            }
 
             if (nextEmployeeId < 1000 || nextEmployeeId > 30000)
             {
@@ -313,6 +326,13 @@ namespace ConferenceManagementApp
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
+            searchErrorLabel.Content = "";
+            int nextEmployeeId = GetNextEmployeeId();
+            if (string.IsNullOrEmpty(fullNameSearchTextBox.Text))
+            {
+                searchErrorLabel.Content = "Вы не заполнили все поля";
+                return;
+            }
             string searchQuery = "SELECT Conferences.name, Conferences.date, Conferences.location, Participation.topic " +
                                  "FROM Researchers " +
                                  "INNER JOIN Participation ON Researchers.id = Participation.researcher_id " +
