@@ -7,14 +7,14 @@
         mc:Ignorable="d"
         Title="GuestWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
-        <TabControl>
+        <TabControl Background="#FFB5C1C7">
             <TabItem Header="Analysis">
-                <StackPanel>
+                <StackPanel Background="#FFB5C1C7">
                     <DataGrid x:Name="analysisResultsDataGrid" Margin="10" Height="385" AutoGenerateColumns="True"/>
                 </StackPanel>
             </TabItem>
             <TabItem Header="Search">
-                <StackPanel>
+                <StackPanel Background="#FFB5C1C7">
                     <TextBox x:Name="fullNameSearchTextBox" Margin="10" Width="300" Height="30" Text="Full Name"/>
                     <Button x:Name="searchButton" Content="Search" Click="SearchButton_Click" Margin="10" Width="300" Height="30"/>
                     <Label x:Name="searchErrorLabel"></Label>

@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="ResearcherWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
-        <TabControl>
+        <TabControl Background="#FFB5C1C7">
             <TabItem Header="Researchers">
                 <StackPanel Height="200">
                     <TextBox x:Name="fullNameTextBox" Margin="10" Width="300" Height="30" Text="Full Name"/>
@@ -22,7 +22,7 @@
                 </StackPanel>
             </TabItem>
             <TabItem Header="Search">
-                <StackPanel>
+                <StackPanel Background="#FFB5C1C7">
                     <TextBox x:Name="fullNameSearchTextBox" Margin="10" Width="300" Height="30" Text="Full Name"/>
                     <Button x:Name="searchButton" Content="Search" Click="SearchButton_Click" Margin="10" Width="300" Height="30"/>
                     <Label x:Name="searchErrorLabel"></Label>

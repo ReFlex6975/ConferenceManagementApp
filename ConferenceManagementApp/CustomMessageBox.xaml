@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Message" Height="200" Width="400" WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
-    <Grid>
+    <Grid Background="#FFB5C1C7">
         <Border BorderBrush="Black" BorderThickness="2" CornerRadius="10" Margin="10">
             <Grid>
                 <Grid.RowDefinitions>

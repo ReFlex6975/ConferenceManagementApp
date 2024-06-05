@@ -139,31 +139,6 @@ namespace ConferenceManagementApp
             }
         }
        
-        private void AddParticipation(int researcherId, int conferenceCode, string topic)
-        {
-            // Добавление записи о участии ученого в конференции
-            string insertQuery = "INSERT INTO Participation (researcher_id, conference_code, topic) VALUES (@researcher_id, @conference_code, @topic)";
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                SqlCommand command = new SqlCommand(insertQuery, connection);
-                command.Parameters.AddWithValue("@researcher_id", researcherId);
-                command.Parameters.AddWithValue("@conference_code", conferenceCode);
-                command.Parameters.AddWithValue("@topic", topic);
-
-                try
-                {
-                    connection.Open();
-                    command.ExecuteNonQuery();
-                    MessageBox.Show("Participation information saved successfully!");
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error adding participation: " + ex.Message);
-                }
-            }
-        }
-
         private void SaveConferenceButton_Click(object sender, RoutedEventArgs e)
         {
             conferenceErrorLabel.Content = "";
