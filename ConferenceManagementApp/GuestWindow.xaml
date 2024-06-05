@@ -15,10 +15,15 @@
             </TabItem>
             <TabItem Header="Search">
                 <StackPanel Background="#FFB5C1C7">
-                    <TextBox x:Name="fullNameSearchTextBox" Margin="10" Width="300" Height="30" Text="Full Name"/>
+                    <TextBox x:Name="fullNameSearchTextBox" Margin="10" Width="300" Height="30" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Full Name"/>
                     <Button x:Name="searchButton" Content="Search" Click="SearchButton_Click" Margin="10" Width="300" Height="30"/>
                     <Label x:Name="searchErrorLabel"></Label>
                     <DataGrid x:Name="searchResultsDataGrid" Margin="10" Height="300" AutoGenerateColumns="True"/>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Members">
+                <StackPanel Background="#FFB5C1C7">
+                    <DataGrid x:Name="membersDataGrid" Margin="10" Height="385" AutoGenerateColumns="True"/>
                 </StackPanel>
             </TabItem>
             <TabItem Header="Options">

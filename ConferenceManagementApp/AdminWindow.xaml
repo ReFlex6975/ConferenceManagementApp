@@ -10,17 +10,17 @@
         <TabControl Background="#FFB5C1C7">
             <TabItem Header="Conferences">
                 <StackPanel Height="200">
-                    <TextBox x:Name="conferenceNameTextBox" Margin="10" Width="300" Height="30" Text="Conference Name"/>
+                    <TextBox x:Name="conferenceNameTextBox" Margin="10" Width="300" Height="30" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Conference Name"/>
                     <DatePicker x:Name="conferenceDatePicker" Margin="10" Width="300" Height="30" Text="Conference Date" SelectedDateFormat="Short"/>
-                    <TextBox x:Name="conferenceLocationTextBox" Margin="10" Width="300" Height="30" Text="Conference Location"/>
+                    <TextBox x:Name="conferenceLocationTextBox" Margin="10" Width="300" Height="30" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Conference Location"/>
                     <Button x:Name="saveConferenceButton" Content="Save Conference" Click="SaveConferenceButton_Click" Margin="10" Width="300" Height="30"/>
                     <Label x:Name="conferenceErrorLabel" Width="300"/>
                 </StackPanel>
             </TabItem>
             <TabItem Header="Researchers">
                 <StackPanel Height="200">
-                    <TextBox x:Name="fullNameTextBox" Margin="10" Width="300" Height="30" Text="Full Name"/>
-                    <TextBox x:Name="countryTextBox" Margin="10" Width="300" Height="30" Text="Country" />
+                    <TextBox x:Name="fullNameTextBox" Margin="10" Width="300" Height="30" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Full Name"/>
+                    <TextBox x:Name="countryTextBox" Margin="10" Width="300" Height="30" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Country"/>
                     <ComboBox x:Name="degreeComboBox" Margin="10" Width="300" Height="30" SelectedIndex="0">
                         <ComboBoxItem Content="профессор"/>
                         <ComboBoxItem Content="академик"/>
@@ -32,10 +32,15 @@
             </TabItem>
             <TabItem Header="Search">
                 <StackPanel>
-                    <TextBox x:Name="fullNameSearchTextBox" Margin="10" Width="300" Height="30" Text="Full Name"/>
+                    <TextBox x:Name="fullNameSearchTextBox" Margin="10" Width="300" Height="30" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Full Name"/>
                     <Button x:Name="searchButton" Content="Search" Click="SearchButton_Click" Margin="10" Width="300" Height="30"/>
                     <Label x:Name="searchErrorLabel"></Label>
                     <DataGrid x:Name="searchResultsDataGrid" Margin="10" Height="275" AutoGenerateColumns="True"/>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Members">
+                <StackPanel Background="#FFB5C1C7">
+                    <DataGrid x:Name="membersDataGrid" Margin="10" Height="300" AutoGenerateColumns="True" CurrentCellChanged="MembersDataGrid_CurrentCellChanged"/>
                 </StackPanel>
             </TabItem>
             <TabItem Header="Options">

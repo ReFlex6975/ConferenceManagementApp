@@ -1,30 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data.SqlClient;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Net;
-using Microsoft.SqlServer.Server;
+using System.Windows.Threading;
 
 namespace ConferenceManagementApp
 {
-    /// <summary>
-    /// Логика взаимодействия для AdminWindow.xaml
-    /// </summary>
     public partial class AdminWindow : Window
     {
-        private string connectionString = "Data Source=REFLEXLAPTOP;Initial Catalog=PR1_1;Integrated Security=True"; //ноут
-        //private string connectionString = "Data Source=ReFlex;Initial Catalog=PR1_1;Integrated Security=True"; //пк
+        private string connectionString = "Data Source=REFLEXLAPTOP;Initial Catalog=PR1_1;Integrated Security=True"; // ноут
+        // private string connectionString = "Data Source=ReFlex;Initial Catalog=PR1_1;Integrated Security=True"; // ПК
 
         public List<Researcher> Researchers { get; set; }
         public List<Conference> Conferences { get; set; }
@@ -48,10 +35,14 @@ namespace ConferenceManagementApp
             Conferences = new List<Conference>();
             LoadResearchers();
             LoadConferences();
-            // Создайте список AnalysisResults и заполните его  
+            LoadMembers();
+            LoadD();
+        }
+
+        public void LoadD()
+        {
             AnalysisResults = new List<AnalysisResult>();
 
-            // Загрузите данные из базы данных
             string query = "SELECT full_name, COUNT(*) AS number_of_presentations " +
                            "FROM Researchers " +
                            "INNER JOIN Participation ON Researchers.id = Participation.researcher_id " +
@@ -81,6 +72,82 @@ namespace ConferenceManagementApp
             }
         }
 
+        private void LoadMembers()
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT id, full_name, country, academic_degree FROM Researchers";
+                SqlCommand command = new SqlCommand(query, connection);
+
+                try
+                {
+                    connection.Open();
+                    SqlDataAdapter adapter = new SqlDataAdapter(command);
+                    DataTable dataTable = new DataTable();
+                    adapter.Fill(dataTable);
+                    membersDataGrid.ItemsSource = dataTable.DefaultView;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error loading members data: " + ex.Message);
+                }
+            }
+        }
+
+        private void MembersDataGrid_CurrentCellChanged(object sender, EventArgs e)
+        {
+            if (membersDataGrid.SelectedItem is DataRowView rowView)
+            {
+                Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    int id = Convert.ToInt32(rowView["id"]);
+                    string fullName = rowView["full_name"].ToString();
+                    string country = rowView["country"].ToString();
+                    string academicDegree = rowView["academic_degree"].ToString();
+
+                    // Отладочное сообщение
+                    MessageBox.Show($"Updating researcher ID {id} with FullName={fullName}, Country={country}, AcademicDegree={academicDegree}");
+
+                    UpdateResearcher(id, fullName, country, academicDegree);
+                }), DispatcherPriority.Background);
+            }
+        }
+
+        private void UpdateResearcher(int id, string fullName, string country, string academicDegree)
+        {
+            string updateQuery = "UPDATE Researchers SET full_name = @full_name, country = @country, academic_degree = @academic_degree WHERE id = @id";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(updateQuery, connection);
+                command.Parameters.AddWithValue("@id", id);
+                command.Parameters.AddWithValue("@full_name", fullName);
+                command.Parameters.AddWithValue("@country", country);
+                command.Parameters.AddWithValue("@academic_degree", academicDegree);
+
+                try
+                {
+                    connection.Open();
+                    int rowsAffected = command.ExecuteNonQuery();
+
+                    // Отладочное сообщение
+                    if (rowsAffected > 0)
+                    {
+                        MessageBox.Show("Researcher updated successfully!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("No rows affected. Update failed.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error updating researcher data: " + ex.Message);
+                }
+            }
+        }
+
+        // Остальные методы не изменены
         private void LoadResearchers()
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -138,7 +205,7 @@ namespace ConferenceManagementApp
                 }
             }
         }
-       
+
         private void SaveConferenceButton_Click(object sender, RoutedEventArgs e)
         {
             conferenceErrorLabel.Content = "";
@@ -170,6 +237,7 @@ namespace ConferenceManagementApp
                     connection.Open();
                     command.ExecuteNonQuery();
                     MessageBox.Show("Conference information saved successfully!");
+                    LoadData();
                 }
                 catch (Exception ex)
                 {
@@ -186,7 +254,7 @@ namespace ConferenceManagementApp
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                SqlCommand command = new SqlCommand(query, connection);
+                SqlCommand command = new SqlCommand(query);
 
                 try
                 {
@@ -226,7 +294,6 @@ namespace ConferenceManagementApp
 
             string selectedDegree = (degreeComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
 
-
             string insertQuery = "INSERT INTO Researchers (id, full_name, country, academic_degree) VALUES (@id, @full_name, @country, @academic_degree)";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -254,11 +321,11 @@ namespace ConferenceManagementApp
         {
             int nextEmployeeId = 1000; // Минимальный табельный номер
 
-            string query = "SELECT MAX(id) FROM Researchers";
+            string query = "SELECT ISNULL(MAX(id), 999) + 1 FROM Researchers";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                SqlCommand command = new SqlCommand(query, connection);
+                SqlCommand command = new SqlCommand(query);
 
                 try
                 {
@@ -267,8 +334,7 @@ namespace ConferenceManagementApp
 
                     if (result != null && result != DBNull.Value)
                     {
-                        int maxId = Convert.ToInt32(result);
-                        nextEmployeeId = Math.Max(1000, maxId + 1); // Обновлено для корректного увеличения ID
+                        nextEmployeeId = Convert.ToInt32(result);
                     }
                 }
                 catch (Exception ex)
@@ -332,5 +398,5 @@ namespace ConferenceManagementApp
             CustomMessageBox customMessageBox = new CustomMessageBox();
             customMessageBox.ShowDialog();
         }
-    }    
+    }
 }

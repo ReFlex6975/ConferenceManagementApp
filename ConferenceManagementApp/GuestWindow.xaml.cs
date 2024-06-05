@@ -31,13 +31,14 @@ namespace ConferenceManagementApp
         public GuestWindow()
         {
             InitializeComponent();
-            LoadData();
+            LoadData();         
         }
 
         public class AnalysisResult
         {
             public string FullName { get; set; }
             public int NumberOfPresentations { get; set; }
+
         }
 
         private void LoadData()
@@ -46,6 +47,7 @@ namespace ConferenceManagementApp
             Conferences = new List<Conference>();
             LoadResearchers();
             LoadConferences();
+            LoadMembers();
             analysisResultsDataGrid.ItemsSource = AnalysisResults;
 
             AnalysisResults = new List<AnalysisResult>();
@@ -78,6 +80,27 @@ namespace ConferenceManagementApp
             }
 
             analysisResultsDataGrid.ItemsSource = AnalysisResults;
+        }
+        private void LoadMembers()
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT full_name, country, academic_degree FROM Researchers";
+                SqlCommand command = new SqlCommand(query, connection);
+
+                try
+                {
+                    connection.Open();
+                    SqlDataAdapter adapter = new SqlDataAdapter(command);
+                    DataTable dataTable = new DataTable();
+                    adapter.Fill(dataTable);
+                    membersDataGrid.ItemsSource = dataTable.DefaultView;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error loading members data: " + ex.Message);
+                }
+            }
         }
 
         private void LoadResearchers()

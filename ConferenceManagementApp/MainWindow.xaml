@@ -78,6 +78,11 @@
                     <Button x:Name="infoButton" Content="Information" Click="InfoButton_Click" Margin="10" Width="300" Height="30"/>
                 </StackPanel>
             </TabItem>
+            <TabItem Header="Members" Background="#FFA99E9E">
+                <StackPanel Background="#FFA99E9E">
+                    <DataGrid x:Name="membersDataGrid" Margin="10" Height="385" AutoGenerateColumns="True"/>
+                </StackPanel>
+            </TabItem>
         </TabControl>
     </Grid>
 </Window>
