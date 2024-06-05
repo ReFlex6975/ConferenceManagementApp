@@ -34,29 +34,6 @@ namespace ConferenceManagementApp
             InitializeComponent();
             LoadData();
         }
-        private void AddInputValidationHandlers()
-        {
-            fullNameSearchTextBox.PreviewTextInput += InputValidationHelper.TextBox_PreviewTextInput;
-            fullNameSearchTextBox.PreviewKeyDown += InputValidationHelper.TextBox_PreviewKeyDown;
-
-            countryTextBox.PreviewTextInput += InputValidationHelper.TextBox_PreviewTextInput;
-            countryTextBox.PreviewKeyDown += InputValidationHelper.TextBox_PreviewKeyDown;
-
-            fullNameSearchTextBox.PreviewTextInput += InputValidationHelper.TextBox_PreviewTextInput;
-            fullNameSearchTextBox.PreviewKeyDown += InputValidationHelper.TextBox_PreviewKeyDown;
-
-            topicTextBox.PreviewTextInput += InputValidationHelper.TextBox_PreviewTextInput;
-            topicTextBox.PreviewKeyDown += InputValidationHelper.TextBox_PreviewKeyDown;
-        }
-        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            InputValidationHelper.TextBox_PreviewTextInput(sender, e);
-        }
-
-        private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            InputValidationHelper.TextBox_PreviewKeyDown(sender, e);
-        }
 
         public class AnalysisResult
         {
@@ -66,11 +43,16 @@ namespace ConferenceManagementApp
 
         private void LoadData()
         {
-            AddInputValidationHandlers();
             Researchers = new List<Researcher>();
             Conferences = new List<Conference>();
             LoadResearchers();
             LoadConferences();
+            AnalysisResultsData();
+            AddInputValidationHandlers();
+        }
+
+        private void AnalysisResultsData()
+        {
             researchersListBox.ItemsSource = Researchers;
             conferencesListBox.ItemsSource = Conferences;
 
@@ -265,7 +247,7 @@ namespace ConferenceManagementApp
                     if (result != null && result != DBNull.Value)
                     {
                         int maxId = Convert.ToInt32(result);
-                        nextEmployeeId = Math.Max(1000, maxId + 1); // Обновлено для корректного увеличения ID
+                        nextEmployeeId = Math.Max(1000, maxId + 1); // Увеличения ID на 1 от максмимального
                     }
                 }
                 catch (Exception ex)
@@ -310,6 +292,30 @@ namespace ConferenceManagementApp
                     MessageBox.Show("Error: " + ex.Message);
                 }
             }
+        }
+
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            InputValidationHelper.TextBox_PreviewTextInput(sender, e);
+        }
+
+        private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            InputValidationHelper.TextBox_PreviewKeyDown(sender, e);
+        }
+        private void AddInputValidationHandlers()
+        {
+            fullNameSearchTextBox.PreviewTextInput += InputValidationHelper.TextBox_PreviewTextInput;
+            fullNameSearchTextBox.PreviewKeyDown += InputValidationHelper.TextBox_PreviewKeyDown;
+
+            countryTextBox.PreviewTextInput += InputValidationHelper.TextBox_PreviewTextInput;
+            countryTextBox.PreviewKeyDown += InputValidationHelper.TextBox_PreviewKeyDown;
+
+            fullNameSearchTextBox.PreviewTextInput += InputValidationHelper.TextBox_PreviewTextInput;
+            fullNameSearchTextBox.PreviewKeyDown += InputValidationHelper.TextBox_PreviewKeyDown;
+
+            topicTextBox.PreviewTextInput += InputValidationHelper.TextBox_PreviewTextInput;
+            topicTextBox.PreviewKeyDown += InputValidationHelper.TextBox_PreviewKeyDown;
         }
         private void ChangeAccountButton_Click(object sender, RoutedEventArgs e)
         {

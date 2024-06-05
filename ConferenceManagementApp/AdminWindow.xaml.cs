@@ -24,29 +24,6 @@ namespace ConferenceManagementApp
             LoadData();
         }
 
-        private void AddInputValidationHandlers()
-        {
-            fullNameTextBox.PreviewTextInput += InputValidationHelper.TextBox_PreviewTextInput;
-            fullNameTextBox.PreviewKeyDown += InputValidationHelper.TextBox_PreviewKeyDown;
-
-            countryTextBox.PreviewTextInput += InputValidationHelper.TextBox_PreviewTextInput;
-            countryTextBox.PreviewKeyDown += InputValidationHelper.TextBox_PreviewKeyDown;
-
-            fullNameSearchTextBox.PreviewTextInput += InputValidationHelper.TextBox_PreviewTextInput;
-            fullNameSearchTextBox.PreviewKeyDown += InputValidationHelper.TextBox_PreviewKeyDown;
-
-            countryTextBox.PreviewTextInput += InputValidationHelper.TextBox_PreviewTextInput;
-            countryTextBox.PreviewKeyDown += InputValidationHelper.TextBox_PreviewKeyDown;
-        }
-        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            InputValidationHelper.TextBox_PreviewTextInput(sender, e);
-        }
-
-        private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            InputValidationHelper.TextBox_PreviewKeyDown(sender, e);
-        }
         public class AnalysisResult
         {
             public string FullName { get; set; }
@@ -55,16 +32,16 @@ namespace ConferenceManagementApp
 
         private void LoadData()
         {
-            AddInputValidationHandlers();
             Researchers = new List<Researcher>();
             Conferences = new List<Conference>();
             LoadResearchers();
             LoadConferences();
             LoadMembers();
-            LoadD();
+            AnalysisResultsData();
+            AddInputValidationHandlers();
         }
 
-        public void LoadD()
+        public void AnalysisResultsData()
         {
             AnalysisResults = new List<AnalysisResult>();
 
@@ -406,6 +383,29 @@ namespace ConferenceManagementApp
             }
         }
 
+        private void AddInputValidationHandlers()
+        {
+            fullNameTextBox.PreviewTextInput += InputValidationHelper.TextBox_PreviewTextInput;
+            fullNameTextBox.PreviewKeyDown += InputValidationHelper.TextBox_PreviewKeyDown;
+
+            countryTextBox.PreviewTextInput += InputValidationHelper.TextBox_PreviewTextInput;
+            countryTextBox.PreviewKeyDown += InputValidationHelper.TextBox_PreviewKeyDown;
+
+            fullNameSearchTextBox.PreviewTextInput += InputValidationHelper.TextBox_PreviewTextInput;
+            fullNameSearchTextBox.PreviewKeyDown += InputValidationHelper.TextBox_PreviewKeyDown;
+
+            countryTextBox.PreviewTextInput += InputValidationHelper.TextBox_PreviewTextInput;
+            countryTextBox.PreviewKeyDown += InputValidationHelper.TextBox_PreviewKeyDown;
+        }
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            InputValidationHelper.TextBox_PreviewTextInput(sender, e);
+        }
+
+        private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            InputValidationHelper.TextBox_PreviewKeyDown(sender, e);
+        }
         private void ChangeAccountButton_Click(object sender, RoutedEventArgs e)
         {
             Authorization auth = new Authorization();

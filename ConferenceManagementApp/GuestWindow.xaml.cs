@@ -38,11 +38,6 @@ namespace ConferenceManagementApp
         {
             public string FullName { get; set; }
             public int NumberOfPresentations { get; set; }
-        }
-        private void AddInputValidationHandlers()
-        {
-            fullNameSearchTextBox.PreviewTextInput += InputValidationHelper.TextBox_PreviewTextInput;
-            fullNameSearchTextBox.PreviewKeyDown += InputValidationHelper.TextBox_PreviewKeyDown;
         } 
 
         private void LoadData()
@@ -52,10 +47,10 @@ namespace ConferenceManagementApp
             LoadResearchers();
             LoadConferences();
             LoadMembers();
-            analysisResultsData();
+            AnalysisResultsData();
             AddInputValidationHandlers();
         }
-        private void analysisResultsData()
+        private void AnalysisResultsData()
         {
             analysisResultsDataGrid.ItemsSource = AnalysisResults;
 
@@ -213,6 +208,11 @@ namespace ConferenceManagementApp
                     MessageBox.Show("Error: " + ex.Message);
                 }
             }
+        }
+        private void AddInputValidationHandlers()
+        {
+            fullNameSearchTextBox.PreviewTextInput += InputValidationHelper.TextBox_PreviewTextInput;
+            fullNameSearchTextBox.PreviewKeyDown += InputValidationHelper.TextBox_PreviewKeyDown;
         }
         private void ChangeAccountButton_Click(object sender, RoutedEventArgs e)
         {
