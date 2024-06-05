@@ -38,22 +38,25 @@ namespace ConferenceManagementApp
         {
             public string FullName { get; set; }
             public int NumberOfPresentations { get; set; }
-
         }
         private void AddInputValidationHandlers()
         {
             fullNameSearchTextBox.PreviewTextInput += InputValidationHelper.TextBox_PreviewTextInput;
             fullNameSearchTextBox.PreviewKeyDown += InputValidationHelper.TextBox_PreviewKeyDown;
-        }
+        } 
 
         private void LoadData()
         {
-            AddInputValidationHandlers();
             Researchers = new List<Researcher>();
             Conferences = new List<Conference>();
             LoadResearchers();
             LoadConferences();
             LoadMembers();
+            analysisResultsData();
+            AddInputValidationHandlers();
+        }
+        private void analysisResultsData()
+        {
             analysisResultsDataGrid.ItemsSource = AnalysisResults;
 
             AnalysisResults = new List<AnalysisResult>();

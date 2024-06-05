@@ -24,18 +24,7 @@ namespace ConferenceManagementApp
                 return;
             }
 
-            if (e.Key == Key.V && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
-            {
-                var textBox = sender as TextBox;
-                if (textBox != null)
-                {
-                    var clipboardText = Clipboard.GetText();
-                    if (!IsTextAllowed(clipboardText))
-                    {
-                        e.Handled = true;
-                    }
-                }
-            }
+            
         }
 
         private static bool IsTextAllowed(string text)
