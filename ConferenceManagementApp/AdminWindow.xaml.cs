@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows;
@@ -10,8 +11,7 @@ namespace ConferenceManagementApp
 {
     public partial class AdminWindow : Window
     {
-        private string connectionString = "Data Source=REFLEXLAPTOP;Initial Catalog=PR1_1;Integrated Security=True"; // ноут
-        // private string connectionString = "Data Source=ReFlex;Initial Catalog=PR1_1;Integrated Security=True"; // ПК
+        private string connectionString = ConfigurationManager.ConnectionStrings["ReFlexConnectionString"].ConnectionString;
 
         public List<Researcher> Researchers { get; set; }
         public List<Conference> Conferences { get; set; }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -20,8 +21,7 @@ namespace ConferenceManagementApp
     /// </summary>
     public partial class Authorization : Window
     {
-        private string connectionString = "Data Source=REFLEXLAPTOP;Initial Catalog=PR1_1;Integrated Security=True"; //ноут
-        //private string connectionString = "Data Source=ReFlex;Initial Catalog=PR1_1;Integrated Security=True"; //пк
+        private string connectionString = ConfigurationManager.ConnectionStrings["ReFlexConnectionString"].ConnectionString;
 
         public Authorization()
         {

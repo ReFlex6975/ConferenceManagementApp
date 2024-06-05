@@ -14,14 +14,13 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data.SqlClient;
 using System.Data;
+using System.Configuration;
 
 namespace ConferenceManagementApp
 {
     public partial class MainWindow : Window
     {
-        //УБЕРИ СТРОКУ ПОДКЛЮЧЕНИЯ В ОТДЕЛЬНЫЙ КЛАСС
-        private string connectionString = "Data Source=REFLEXLAPTOP;Initial Catalog=PR1_1;Integrated Security=True"; //ноут
-        //private string connectionString = "Data Source=ReFlex;Initial Catalog=PR1_1;Integrated Security=True"; //пк
+        private string connectionString = ConfigurationManager.ConnectionStrings["ReFlexConnectionString"].ConnectionString;
 
         public List<Researcher> Researchers { get; set; }
         public List<Conference> Conferences { get; set; }
