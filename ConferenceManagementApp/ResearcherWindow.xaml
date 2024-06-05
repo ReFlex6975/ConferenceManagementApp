@@ -10,8 +10,10 @@
         <TabControl Background="#FFB5C1C7">
             <TabItem Header="Researchers">
                 <StackPanel Height="200">
-                    <TextBox x:Name="fullNameTextBox" Margin="10" Width="300" Height="30" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Full Name"/>
-                    <TextBox x:Name="countryTextBox" Margin="10" Width="300" Height="30" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Country"/>
+                    <TextBox x:Name="fullNameTextBox" Margin="10" Width="300" Height="30" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Full Name"
+                             PreviewTextInput="TextBox_PreviewTextInput" PreviewKeyDown="TextBox_PreviewKeyDown"/>
+                    <TextBox x:Name="countryTextBox" Margin="10" Width="300" Height="30" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Country"
+                             PreviewTextInput="TextBox_PreviewTextInput" PreviewKeyDown="TextBox_PreviewKeyDown"/>
                     <ComboBox x:Name="degreeComboBox" Margin="10" Width="300" Height="30" SelectedIndex="0">
                         <ComboBoxItem Content="профессор"/>
                         <ComboBoxItem Content="академик"/>
@@ -23,7 +25,8 @@
             </TabItem>
             <TabItem Header="Search">
                 <StackPanel Background="#FFB5C1C7">
-                    <TextBox x:Name="fullNameSearchTextBox" Margin="10" Width="300" Height="30" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Full Name"/>
+                    <TextBox x:Name="fullNameSearchTextBox" Margin="10" Width="300" Height="30" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Full Name"
+                             PreviewTextInput="TextBox_PreviewTextInput" PreviewKeyDown="TextBox_PreviewKeyDown"/>
                     <Button x:Name="searchButton" Content="Search" Click="SearchButton_Click" Margin="10" Width="300" Height="30"/>
                     <Label x:Name="searchErrorLabel"></Label>
                     <DataGrid x:Name="searchResultsDataGrid" Margin="10" Height="300" AutoGenerateColumns="True"/>
@@ -45,7 +48,8 @@
                             <ListBox x:Name="conferencesListBox" Width="300" Height="220" DisplayMemberPath="Name" Margin="5"/>
                         </StackPanel>
                     </Grid>
-                    <TextBox x:Name="topicTextBox" Margin="10" Width="300" Height="30" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Topic"/>
+                    <TextBox x:Name="topicTextBox" Margin="10" Width="300" Height="30" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Topic"
+                             PreviewTextInput="TextBox_PreviewTextInput" PreviewKeyDown="TextBox_PreviewKeyDown"/>
                     <Button Content="Add Participation" Click="AddParticipationButton_Click" Margin="10" Width="300" Height="30" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
                 </StackPanel>
             </TabItem>

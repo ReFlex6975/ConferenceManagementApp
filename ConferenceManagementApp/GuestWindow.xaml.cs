@@ -30,7 +30,8 @@ namespace ConferenceManagementApp
         public GuestWindow()
         {
             InitializeComponent();
-            LoadData();         
+            LoadData();
+            
         }
 
         public class AnalysisResult
@@ -39,9 +40,15 @@ namespace ConferenceManagementApp
             public int NumberOfPresentations { get; set; }
 
         }
+        private void AddInputValidationHandlers()
+        {
+            fullNameSearchTextBox.PreviewTextInput += InputValidationHelper.TextBox_PreviewTextInput;
+            fullNameSearchTextBox.PreviewKeyDown += InputValidationHelper.TextBox_PreviewKeyDown;
+        }
 
         private void LoadData()
         {
+            AddInputValidationHandlers();
             Researchers = new List<Researcher>();
             Conferences = new List<Conference>();
             LoadResearchers();
@@ -79,6 +86,16 @@ namespace ConferenceManagementApp
             }
 
             analysisResultsDataGrid.ItemsSource = AnalysisResults;
+        }
+
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            InputValidationHelper.TextBox_PreviewTextInput(sender, e);
+        }
+
+        private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            InputValidationHelper.TextBox_PreviewKeyDown(sender, e);
         }
         private void LoadMembers()
         {

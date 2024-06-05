@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Threading;
 
 namespace ConferenceManagementApp
@@ -23,6 +24,29 @@ namespace ConferenceManagementApp
             LoadData();
         }
 
+        private void AddInputValidationHandlers()
+        {
+            fullNameTextBox.PreviewTextInput += InputValidationHelper.TextBox_PreviewTextInput;
+            fullNameTextBox.PreviewKeyDown += InputValidationHelper.TextBox_PreviewKeyDown;
+
+            countryTextBox.PreviewTextInput += InputValidationHelper.TextBox_PreviewTextInput;
+            countryTextBox.PreviewKeyDown += InputValidationHelper.TextBox_PreviewKeyDown;
+
+            fullNameSearchTextBox.PreviewTextInput += InputValidationHelper.TextBox_PreviewTextInput;
+            fullNameSearchTextBox.PreviewKeyDown += InputValidationHelper.TextBox_PreviewKeyDown;
+
+            countryTextBox.PreviewTextInput += InputValidationHelper.TextBox_PreviewTextInput;
+            countryTextBox.PreviewKeyDown += InputValidationHelper.TextBox_PreviewKeyDown;
+        }
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            InputValidationHelper.TextBox_PreviewTextInput(sender, e);
+        }
+
+        private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            InputValidationHelper.TextBox_PreviewKeyDown(sender, e);
+        }
         public class AnalysisResult
         {
             public string FullName { get; set; }
@@ -31,6 +55,7 @@ namespace ConferenceManagementApp
 
         private void LoadData()
         {
+            AddInputValidationHandlers();
             Researchers = new List<Researcher>();
             Conferences = new List<Conference>();
             LoadResearchers();

@@ -65,6 +65,7 @@
     <Compile Include="GuestWindow.xaml.cs">
       <DependentUpon>GuestWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="InputValidationHelper.cs" />
     <Compile Include="ResearcherWindow.xaml.cs">
       <DependentUpon>ResearcherWindow.xaml</DependentUpon>
     </Compile>
