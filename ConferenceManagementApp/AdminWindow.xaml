@@ -9,7 +9,7 @@
     <Grid>
         <TabControl>
             <TabItem Header="Conferences">
-                <StackPanel>
+                <StackPanel Height="200">
                     <TextBox x:Name="conferenceNameTextBox" Margin="10" Width="300" Height="30" Text="Conference Name"/>
                     <DatePicker x:Name="conferenceDatePicker" Margin="10" Width="300" Height="30" Text="Conference Date"/>
                     <TextBox x:Name="conferenceLocationTextBox" Margin="10" Width="300" Height="30" Text="Conference Location"/>
@@ -18,7 +18,7 @@
                 </StackPanel>
             </TabItem>
             <TabItem Header="Researchers">
-                <StackPanel>
+                <StackPanel Height="200">
                     <TextBox x:Name="fullNameTextBox" Margin="10" Width="300" Height="30" Text="Full Name"/>
                     <TextBox x:Name="countryTextBox" Margin="10" Width="300" Height="30" Text="Country" />
                     <ComboBox x:Name="degreeComboBox" Margin="10" Width="300" Height="30" SelectedIndex="0">
@@ -35,11 +35,11 @@
                     <TextBox x:Name="fullNameSearchTextBox" Margin="10" Width="300" Height="30" Text="Full Name"/>
                     <Button x:Name="searchButton" Content="Search" Click="SearchButton_Click" Margin="10" Width="300" Height="30"/>
                     <Label x:Name="searchErrorLabel"></Label>
-                    <DataGrid x:Name="searchResultsDataGrid" Margin="10" Height="300" AutoGenerateColumns="True"/>
+                    <DataGrid x:Name="searchResultsDataGrid" Margin="10" Height="275" AutoGenerateColumns="True"/>
                 </StackPanel>
             </TabItem>
             <TabItem Header="Options">
-                <StackPanel>
+                <StackPanel Height="150">
                     <Button x:Name="changeAccountButton" Content="Change Account" Click="ChangeAccountButton_Click" Margin="10" Width="300" Height="30"/>
                     <Button x:Name="exitButton" Content="Exit" Click="ExitButton_Click" Margin="10" Width="300" Height="30"/>
                     <Button x:Name="infoButton" Content="Information" Click="InfoButton_Click" Margin="10" Width="300" Height="30"/>

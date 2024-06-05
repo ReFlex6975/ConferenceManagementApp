@@ -20,8 +20,8 @@ namespace ConferenceManagementApp
     /// </summary>
     public partial class Authorization : Window
     {
-        //private string connectionString = "Data Source=REFLEXLAPTOP;Initial Catalog=PR1_1;Integrated Security=True"; //ноут
-        private string connectionString = "Data Source=ReFlex;Initial Catalog=PR1_1;Integrated Security=True"; //пк
+        private string connectionString = "Data Source=REFLEXLAPTOP;Initial Catalog=PR1_1;Integrated Security=True"; //ноут
+        //private string connectionString = "Data Source=ReFlex;Initial Catalog=PR1_1;Integrated Security=True"; //пк
 
         public Authorization()
         {
@@ -77,7 +77,7 @@ namespace ConferenceManagementApp
 
         private void OpenMainWindow(string role)
         {
-            Window mainWindow = null;
+            Window mainWindow;
 
             switch (role)
             {

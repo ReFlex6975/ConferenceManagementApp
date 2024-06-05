@@ -23,8 +23,8 @@ namespace ConferenceManagementApp
     /// </summary>
     public partial class AdminWindow : Window
     {
-        //private string connectionString = "Data Source=REFLEXLAPTOP;Initial Catalog=PR1_1;Integrated Security=True"; //ноут
-        private string connectionString = "Data Source=ReFlex;Initial Catalog=PR1_1;Integrated Security=True"; //пк
+        private string connectionString = "Data Source=REFLEXLAPTOP;Initial Catalog=PR1_1;Integrated Security=True"; //ноут
+        //private string connectionString = "Data Source=ReFlex;Initial Catalog=PR1_1;Integrated Security=True"; //пк
 
         public List<Researcher> Researchers { get; set; }
         public List<Conference> Conferences { get; set; }
@@ -167,7 +167,6 @@ namespace ConferenceManagementApp
         private void SaveConferenceButton_Click(object sender, RoutedEventArgs e)
         {
             conferenceErrorLabel.Content = "";
-            int nextEmployeeId = GetNextEmployeeId();
             if (string.IsNullOrEmpty(conferenceNameTextBox.Text) || string.IsNullOrEmpty(conferenceLocationTextBox.Text))
             {
                 conferenceErrorLabel.Content = "Вы не заполнили все поля";
@@ -309,7 +308,6 @@ namespace ConferenceManagementApp
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
             searchErrorLabel.Content = "";
-            int nextEmployeeId = GetNextEmployeeId();
             if (string.IsNullOrEmpty(fullNameSearchTextBox.Text))
             {
                 searchErrorLabel.Content = "Вы не заполнили все поля";

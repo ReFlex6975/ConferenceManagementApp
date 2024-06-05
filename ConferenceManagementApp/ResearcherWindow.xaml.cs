@@ -21,8 +21,8 @@ namespace ConferenceManagementApp
     /// </summary>
     public partial class ResearcherWindow : Window
     {
-        //private string connectionString = "Data Source=REFLEXLAPTOP;Initial Catalog=PR1_1;Integrated Security=True"; //ноут
-        private string connectionString = "Data Source=ReFlex;Initial Catalog=PR1_1;Integrated Security=True"; //пк
+        private string connectionString = "Data Source=REFLEXLAPTOP;Initial Catalog=PR1_1;Integrated Security=True"; //ноут
+        //private string connectionString = "Data Source=ReFlex;Initial Catalog=PR1_1;Integrated Security=True"; //пк
 
         public List<Researcher> Researchers { get; set; }
         public List<Conference> Conferences { get; set; }

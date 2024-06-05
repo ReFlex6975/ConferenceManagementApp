@@ -22,7 +22,7 @@
                 </StackPanel>
             </TabItem>
             <TabItem Header="Options">
-                <StackPanel>
+                <StackPanel Height="150">
                     <Button x:Name="changeAccountButton" Content="Change Account" Click="ChangeAccountButton_Click" Margin="10" Width="300" Height="30"/>
                     <Button x:Name="exitButton" Content="Exit" Click="ExitButton_Click" Margin="10" Width="300" Height="30"/>
                     <Button x:Name="infoButton" Content="Information" Click="InfoButton_Click" Margin="10" Width="300" Height="30"/>

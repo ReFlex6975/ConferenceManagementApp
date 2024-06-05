@@ -9,7 +9,7 @@
     <Grid>
         <TabControl>
             <TabItem Header="Researchers">
-                <StackPanel>
+                <StackPanel Height="200">
                     <TextBox x:Name="fullNameTextBox" Margin="10" Width="300" Height="30" Text="Full Name"/>
                     <TextBox x:Name="countryTextBox" Margin="10" Width="300" Height="30" Text="Country" />
                     <ComboBox x:Name="degreeComboBox" Margin="10" Width="300" Height="30" SelectedIndex="0">
@@ -38,11 +38,11 @@
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0">
                             <TextBlock Text="Researchers" Margin="5"/>
-                            <ListBox x:Name="researchersListBox" Width="300" Height="250" DisplayMemberPath="FullName" Margin="5"/>
+                            <ListBox x:Name="researchersListBox" Width="300" Height="220" DisplayMemberPath="FullName" Margin="5"/>
                         </StackPanel>
                         <StackPanel Grid.Column="1">
                             <TextBlock Text="Conferences" Margin="5"/>
-                            <ListBox x:Name="conferencesListBox" Width="300" Height="250" DisplayMemberPath="Name" Margin="5"/>
+                            <ListBox x:Name="conferencesListBox" Width="300" Height="220" DisplayMemberPath="Name" Margin="5"/>
                         </StackPanel>
                     </Grid>
                     <TextBox x:Name="topicTextBox" Margin="10" Width="300" Height="30" Text="Topic"/>
@@ -50,7 +50,7 @@
                 </StackPanel>
             </TabItem>
             <TabItem Header="Options">
-                <StackPanel>
+                <StackPanel Height="200">
                     <Button x:Name="changeAccountButton" Content="Change Account" Click="ChangeAccountButton_Click" Margin="10" Width="300" Height="30"/>
                     <Button x:Name="exitButton" Content="Exit" Click="ExitButton_Click" Margin="10" Width="300" Height="30"/>
                     <Button x:Name="infoButton" Content="Information" Click="InfoButton_Click" Margin="10" Width="300" Height="30"/>
